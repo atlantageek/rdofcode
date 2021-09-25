@@ -1,0 +1,24 @@
+.button {
+    color: white;
+    margin: 0px 10px;
+ }
+ .mapgrid {
+    display:flex;
+    height: calc( 100vh - 64px);
+ }
+ .maprow {
+   flex: 3; /* additionally, equal width */
+  
+   padding: 0em;
+   border: solid;
+ }
+ .gridrow {
+   flex: 1; /* additionally, equal width */
+  
+   padding: 0em;
+   border: solid;
+ }
+ .mat-tab-body-wrapper {
+  flex-grow: 1 !important;
+
+}

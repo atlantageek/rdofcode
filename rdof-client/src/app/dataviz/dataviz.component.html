@@ -1,0 +1,8 @@
+<div   class="mapgrid" >
+    <div class="maprow" >
+        <div style="height: 100%;min-width:100%;"  
+            leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)" (leafletClick)="getPolygon($event)">
+        </div>
+    </div>
+    
+</div>

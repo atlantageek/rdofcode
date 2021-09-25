@@ -1,0 +1,17 @@
+
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <!--  <span>HOME</span> -->
+       <a mat-button routerLink="/">Home</a>
+       <a *ngIf="currentUser != null" mat-button routerLink="/areaselection">Area Selection</a>
+       <a *ngIf="currentUser != null" mat-button routerLink="/dataviz">DataVisualization</a>
+       <span class="spacer"></span>
+       <a *ngIf="currentUser == null" mat-button routerLink="/register">Register</a>
+       <a *ngIf="currentUser == null" mat-button routerLink="/login">Login</a>
+       <a *ngIf="currentUser != null" mat-button routerLink="/logout">Logout</a>
+    </mat-toolbar-row>
+ </mat-toolbar>
+
+
+
+<router-outlet></router-outlet>

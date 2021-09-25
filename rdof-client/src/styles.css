@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.my-form{
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+   
+  .full-width {
+    width: 100%;
+  }
+  .mat-tab-body-wrapper {
+    flex-grow: 1 !important;
+  }
+
+  .ag-header-cell{
+    /* Necessary to allow for text to grow vertically */
+    height: 100%;
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+}

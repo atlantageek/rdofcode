@@ -1,0 +1,48 @@
+<form class="example-form">
+    <p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Lower Salary</mat-label>
+      <input type="minSalary" matInput [formControl]="minSalaryControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. pat@example.com">
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-error *ngIf="minSalaryControl.hasError('minSalary') ">
+        Please enter a valid starting Salary
+      </mat-error>
+
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Upper Salary</mat-label>
+      <input type="maxSalary" matInput [formControl]="maxSalaryControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. pat@example.com">
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-error *ngIf="maxSalaryControl.hasError('maxSalarm') ">
+        Please enter a valid starting Salary
+      </mat-error>
+
+    </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Lower Population</mat-label>
+        <input type="minPopulation" matInput [formControl]="minPopulationControl" [errorStateMatcher]="matcher"
+               placeholder="Ex. pat@example.com">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="minPopulationControl.hasError('minPopulation') ">
+          Please enter a valid starting Salary
+        </mat-error>
+  
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Upper Population</mat-label>
+        <input type="maxPopulation" matInput [formControl]="maxPopulationControl" [errorStateMatcher]="matcher"
+               placeholder="Ex. pat@example.com">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="maxPopulationControl.hasError('maxPopulation') ">
+          Please enter a valid starting Salary
+        </mat-error>
+  
+      </mat-form-field>
+      
+      </p>
+      <button>Search!</button>
+  </form>
