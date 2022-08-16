@@ -14,9 +14,9 @@
         <mat-tab-group style="height:100%;">
             <mat-tab label="Selected Tracts" style="height:500px;">
                 <button mat-button (click)="storeAois()">Store</button>
-                <app-area-list></app-area-list>
+                <app-area-list [map]="map"></app-area-list> 
             </mat-tab>
-            <mat-tab label="Filters">
+            <!-- <mat-tab label="Filters">
 <app-filter-entry></app-filter-entry>
             </mat-tab>
             <mat-tab label="Addresses">
@@ -25,7 +25,7 @@
                     class="ag-theme-alpine"   
                     [columnDefs]="columnDefs" [rowModelType]='"infinite"' (gridReady)="onGridReady($event)">
                 </ag-grid-angular> 
-            </mat-tab>
+            </mat-tab> -->
         </mat-tab-group>
 
     </div>

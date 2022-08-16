@@ -4,14 +4,11 @@ import * as moment from "moment";
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 export interface IRegion {
+    selected:boolean,
     polygon:any,
-    reserve:number,
-    county:string,
-    state:string,
     census_id: string,
-    location_count:number,
-    selected?:boolean,
-    addr_count?:number
+    housing:number,
+    population:number
 }
 export interface IAddress {
     unit: string,
@@ -104,13 +101,13 @@ export class CommService {
             if (data == null) return null;
             let json_str = data["geom"];
             let polygon = JSON.parse(json_str);
-            debugger;
-            return {polygon: json_str, 
-                reserve:data["reserve"], 
-                county:data["county"],
-                state:data["state"],
-                census_id: data["census_id"],
-                location_count: data["location_count"]}
+            return {
+                selected:true,
+                polygon: json_str, 
+                housing:data["housing"], 
+                population:data["population"],
+                census_id: data["census_id"]
+            }
             }
    
         )

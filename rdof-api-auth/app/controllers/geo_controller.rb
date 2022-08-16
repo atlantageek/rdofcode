@@ -15,7 +15,7 @@ class GeoController < ApplicationController
   def getLocation()
     latitude=params[:lat]
     longitude=params[:lng]
-    query = "select st_AsGeoJSON(st_forcepolygonccw(geom)) as geom, census_id from stats where st_contains(geom, st_setsrid(st_point(#{longitude},#{latitude}), 4326))"
+    query = "select st_AsGeoJSON(st_forcepolygonccw(wkb_geometry)) as geom, geoid20 as census_id, housing20 as housing, pop20 as population from census_blocks where st_contains(geom, st_setsrid(st_point(#{longitude},#{latitude}), 4326))"
     geom = ActiveRecord::Base.connection.execute(query).first
     render json: geom
   end
@@ -44,14 +44,11 @@ class GeoController < ApplicationController
     user = User.find(params[:userid])
     query = 
       <<~HEREDOC
-      select st_asgeojson(st_forcepolygonccw(aois.geom)) as geom, aois.census_id, county, state, locations,reserve, count(*) as addr_cnt
-      from aois 
-        left join rdof_tracts 
-          on rdof_tracts.census_id = aois.census_id 
-        left join addresses
-          on st_contains(aois.geom,wkb_geometry)
-      where user_id = #{user.id}
-      group by aois.geom, aois.census_id, county, state,locations,reserve
+      select st_asgeojson(st_forcepolygonccw(a.geom)) as geom, a.census_id, housing20,pop20
+      from aois a
+        left join census_blocks c
+          on c.geoid20 = a.census_id 
+      where a.user_id = #{user.id} and c.housing20 is not null
       HEREDOC
     aoi_result = ActiveRecord::Base.connection.execute(query)
     aois = aoi_result.map do |aoi|
@@ -61,7 +58,7 @@ class GeoController < ApplicationController
       puts(aoi["geom"])
       geom=aoi["geom"].gsub(/MULTIPOLYGON /,'MULTIPOLYGON')
 
-      {polygon: geom , census_id: aoi["census_id"],county: aoi["county"],state:aoi["state"],location_count:aoi["locations"],reserve: aoi["reserve"],  selected:true, addr_cnt: aoi["addr_cnt"]}
+      {polygon: geom , census_id: aoi["census_id"],  selected:true, housing:aoi["housing20"],population:aoi["pop20"]}
     end
     puts(aois)
     render json: aois
@@ -71,4 +68,3 @@ class GeoController < ApplicationController
     params.permit!
   end
 end
-[]

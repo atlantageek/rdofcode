@@ -60,13 +60,16 @@ export class AreaSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.commService.getAois().then((data:IRegion[]) => {
+      this.areaSelectionService.aois.next(data)
+    })
   }
 
   rowData: BehaviorSubject<IAddress[]> = new BehaviorSubject<IAddress[]>([]);
   private gridApi;
   private gridColumnApi;
 
-  private map:Map;
+  public map:Map;
   columnDefs = [
     { field: 'unit' },
     { field: 'number' },
@@ -75,6 +78,7 @@ export class AreaSelectionComponent implements OnInit {
     { field: 'region' },
     { field: 'postcode' }
   ];
+  
 
   options = {
     layers: [
@@ -101,28 +105,28 @@ export class AreaSelectionComponent implements OnInit {
         //     maxZoom: 23, crs: CRS.EPSG4326
   
         //   }),  
-        tileLayer.wms(
-          'http://localhost/cgi-bin/mapserv?map=/usr/lib/cgi-bin/myfirst.map&SERVICE=WMS&VERSION=1.1.1&income=100000&',
-          {
-            transparent: true,
-            layers: 'rdof2',
-            // accessToken: '82dd5a670dacb72990c1bcd79deb0190',
-            format: 'image/png',
-            attribution: 'Something',
-            maxZoom: 23, crs: CRS.EPSG4326
+        // tileLayer.wms(
+        //   'http://localhost/cgi-bin/mapserv?map=/usr/lib/cgi-bin/myfirst.map&SERVICE=WMS&VERSION=1.1.1&income=100000&',
+        //   {
+        //     transparent: true,
+        //     layers: 'rdof2',
+        //     // accessToken: '82dd5a670dacb72990c1bcd79deb0190',
+        //     format: 'image/png',
+        //     attribution: 'Something',
+        //     maxZoom: 23, crs: CRS.EPSG4326
   
-          }),
-         tileLayer.wms(
-            'http://localhost/cgi-bin/mapserv?map=/usr/lib/cgi-bin/myfirst.map&SERVICE=WMS&VERSION=1.1.1&',
-            {
-              transparent: true,
-              layers: 'fiber_boxes',
-              // accessToken: '82dd5a670dacb72990c1bcd79deb0190',
-              format: 'image/png',
-              attribution: 'Something',
-              maxZoom: 23, crs: CRS.EPSG4326
+        //   }),
+        //  tileLayer.wms(
+        //     'http://localhost/cgi-bin/mapserv?map=/usr/lib/cgi-bin/myfirst.map&SERVICE=WMS&VERSION=1.1.1&',
+        //     {
+        //       transparent: true,
+        //       layers: 'fiber_boxes',
+        //       // accessToken: '82dd5a670dacb72990c1bcd79deb0190',
+        //       format: 'image/png',
+        //       attribution: 'Something',
+        //       maxZoom: 23, crs: CRS.EPSG4326
     
-            }),
+        //     }),
             // tileLayer.wms(
             //   'http://localhost/cgi-bin/mapserv?map=/usr/lib/cgi-bin/myfirst.map&SERVICE=WMS&VERSION=1.1.1&start_income=50000',
             //   {
@@ -165,19 +169,20 @@ export class AreaSelectionComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
     console.log("ongridready")
     this.areaSelectionService.aois.subscribe((areas) => {
+      console.log("AOIS changed.")
+      debugger;
       this.layerJsonGroup.clearLayers()
       areas.forEach((area) => {
-
+        debugger;
         if (area.selected){
 
           let dobj=JSON.parse(area.polygon)
+          debugger;
           this.layerJsonGroup.addLayer(L.geoJSON(dobj))
         }
       })
     })
-    this.commService.getAois().then((data:IRegion[]) => {
-      this.areaSelectionService.aois.next(data)
-    })
+
     this.areaSelectionService.zoomArea.subscribe((area) => {
       if (area == null) return;
       debugger;
@@ -232,6 +237,20 @@ export class AreaSelectionComponent implements OnInit {
       this.layerJsonGroup = new L.LayerGroup();
       this.layerJsonGroup.addTo(this.map);
       L.control.coordinates({}).addTo(map);
+      this.areaSelectionService.aois.subscribe((areas) => {
+        console.log("AOIS changed.")
+        debugger;
+        this.layerJsonGroup.clearLayers()
+        areas.forEach((area) => {
+          debugger;
+          if (area.selected){
+  
+            let dobj=JSON.parse(area.polygon)
+            debugger;
+            this.layerJsonGroup.addLayer(L.geoJSON(dobj))
+          }
+        })
+      })
     //   L.control.coordinates({
     //     position:"bottomleft", //optional default "bootomright"
     //     decimals:2, //optional default 4
@@ -247,8 +266,8 @@ export class AreaSelectionComponent implements OnInit {
     //     labelFormatterLat : function(lat){return lat+" lat"}, //optional default none
     //   }).addTo(map);
     });
-    var measControl = new LinearMeasurement();
-    measControl.addTo(map)
+    // var measControl = new LinearMeasurement();
+    // measControl.addTo(map)
     // var measurementControl = L.control.measure({})
     // measurementControl.addTo(map)
   }
