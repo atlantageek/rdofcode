@@ -1,0 +1,29 @@
+<form class="f477-form">
+    <p>
+    <mat-form-field class="example-full-width">
+      <mat-label>DB Name</mat-label>
+      <input type="input" required matInput [formControl]="dbNameControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. MomAndPop Telecom">
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-error >
+        Please enter a valid starting Salary
+      </mat-error>
+    </mat-form-field>
+
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Default Transmission Tech</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let tech of techs"[value]="tech.value">
+            {{tech.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-checkbox [aria-label]="'Consumer Broadband available'">
+      </mat-checkbox>
+  </p>
+      <button>Search!</button>
+  </form>

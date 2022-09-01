@@ -14,6 +14,7 @@ import { AreaSelectionComponent } from './area-selection/area-selection.componen
 import { DatavizComponent} from './dataviz/dataviz.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MaterialModule } from  './material.module';
+
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CommService } from './services/comm.service';
@@ -25,6 +26,7 @@ import { AreaSelectionService } from './area-selection/services/area-selection.s
 import { AgGridCheckboxComponent } from './area-selection/components/ag-grid-checkbox/ag-grid-checkbox.component'
 import { AgGridJumpComponent } from './area-selection/components/ag-grid-jump/ag-grid-jump.component'
 import { FilterEntryComponent } from './area-selection/components/filter-entry/filter-entry.component';
+import { F477EntryComponent } from './area-selection/components/f477-entry/f477-entry.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { FilterEntryComponent } from './area-selection/components/filter-entry/f
     AreaListComponent,
     AgGridCheckboxComponent,
     AgGridJumpComponent,
+    F477EntryComponent,
     FilterEntryComponent
   ],
   imports: [ 

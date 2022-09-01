@@ -12,12 +12,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material/list'
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatNativeDateModule} from '@angular/material/core'
+import {  MatSelectModule} from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 
 //MatNativeDateModule, MatCardModule,MatFormFieldModule,MatInputModule,MatRadioModule,MatListModule
 @NgModule({
-imports: [MatButtonModule,MatToolbarModule,MatIconModule, MatDatepickerModule, MatCheckboxModule, MatCardModule,MatFormFieldModule,MatInputModule,MatRadioModule,MatListModule,MatNativeDateModule, MatTabsModule],
-exports: [MatButtonModule,MatToolbarModule,MatIconModule, MatDatepickerModule, MatCheckboxModule, MatCardModule,MatFormFieldModule,MatInputModule,MatRadioModule,MatListModule,MatNativeDateModule, MatTabsModule]
+imports: [MatCheckboxModule, MatButtonModule,MatToolbarModule,MatIconModule, MatDatepickerModule, MatCheckboxModule, MatCardModule,MatFormFieldModule,MatInputModule,MatRadioModule,MatListModule,MatNativeDateModule, MatTabsModule,MatSelectModule,MatOptionModule],
+exports: [MatCheckboxModule,MatButtonModule,MatToolbarModule,MatIconModule, MatDatepickerModule, MatCheckboxModule, MatCardModule,MatFormFieldModule,MatInputModule,MatRadioModule,MatListModule,MatNativeDateModule, MatTabsModule, MatSelectModule,MatOptionModule]
  
 })
  

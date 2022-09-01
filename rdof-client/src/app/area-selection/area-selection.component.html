@@ -13,12 +13,13 @@
     <div class="gridrow" style="height:100%;">
         <mat-tab-group style="height:100%;">
             <mat-tab label="Selected Tracts" style="height:500px;">
-                <button mat-button (click)="storeAois()">Store</button>
+                <button mat-raised-button (click)="storeAois()" color="primary">Store</button>
                 <app-area-list [map]="map"></app-area-list> 
             </mat-tab>
-            <!-- <mat-tab label="Filters">
-<app-filter-entry></app-filter-entry>
+            <mat-tab label="FCC Form 477">
+<app-f477-entry></app-f477-entry>
             </mat-tab>
+            <!--
             <mat-tab label="Addresses">
                 <ag-grid-angular
                     style="width: 500px; height: 100%;"
