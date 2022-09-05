@@ -18,7 +18,6 @@ export class AgGridJumpComponent implements AgRendererComponent {
   }
 
   btnClickedHandler(event) {
-    debugger;
 
     this.areaSelectionService.zoomArea.next(this.params.data.polygon)
   }

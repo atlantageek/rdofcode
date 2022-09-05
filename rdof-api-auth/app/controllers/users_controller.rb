@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorized, only: [:auto_login]
+  before_action :authorized, only: [:auto_login, :f477,:attributes,:write_attributes]
 
   # REGISTER
   def create
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def login
     @user = User.find_by(username: params[:username])
 
-    if @user #&& @user.authenticate(params[:password])
+    if @user && @user.authenticate(params[:password])
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}
     else
@@ -24,13 +24,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def write_attributes()
+    params =attr_params
+    logger = Rails.logger
+    logger.debug(params)
+    logger.debug("Trying stuff")
+    logger.info(@user)
+    @user.db_name=params["db_name"]
+    @user.tech_used=params["tech_used"]
+    @user.consumer = params["consumer"]
+    @user.upstream=params["upstream"]
+    @user.downstream=params["downstream"]
+    @user.save()
+  end
 
   def auto_login
     render json: @user
   end
+  def attributes
+    render json: @user
+  end
 
   private
-
+  def attr_params
+    params.permit(:db_name, :tech_used,:consumer,:upstream,:downstream,:user)
+  end
   def user_params
     params.permit(:username, :password, :email)
   end

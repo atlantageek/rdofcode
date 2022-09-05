@@ -119,6 +119,20 @@ export class CommService {
         )
         return result;
     }
+    get_user_attributes():Promise<any> {
+        let path = '/api/user_attributes/';
+        return this.http.get(path).pipe(
+            catchError(this.handleError)
+        ).toPromise()
+    }
+    store_user_attributes(attrs:any):any {
+ 
+        let path = '/api/user_attributes/';
+
+        let result = this.http.post(path, attrs).pipe(tap(res=> res),catchError(this.handleError)).toPromise()
+
+    
+    }
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.

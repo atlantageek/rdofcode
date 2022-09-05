@@ -170,14 +170,12 @@ export class AreaSelectionComponent implements OnInit {
     console.log("ongridready")
     this.areaSelectionService.aois.subscribe((areas) => {
       console.log("AOIS changed.")
-      debugger;
+
       this.layerJsonGroup.clearLayers()
       areas.forEach((area) => {
-        debugger;
         if (area.selected){
 
           let dobj=JSON.parse(area.polygon)
-          debugger;
           this.layerJsonGroup.addLayer(L.geoJSON(dobj))
         }
       })
@@ -185,7 +183,6 @@ export class AreaSelectionComponent implements OnInit {
 
     this.areaSelectionService.zoomArea.subscribe((area) => {
       if (area == null) return;
-      debugger;
       let dobj=JSON.parse(area)
       let zoomArea=L.featureGroup([L.geoJSON(dobj)])
       this.map.fitBounds(zoomArea.getBounds())
@@ -239,14 +236,11 @@ export class AreaSelectionComponent implements OnInit {
       L.control.coordinates({}).addTo(map);
       this.areaSelectionService.aois.subscribe((areas) => {
         console.log("AOIS changed.")
-        debugger;
         this.layerJsonGroup.clearLayers()
         areas.forEach((area) => {
-          debugger;
           if (area.selected){
   
             let dobj=JSON.parse(area.polygon)
-            debugger;
             this.layerJsonGroup.addLayer(L.geoJSON(dobj))
           }
         })

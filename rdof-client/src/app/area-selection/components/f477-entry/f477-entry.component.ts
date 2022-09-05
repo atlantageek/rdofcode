@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormControl, FormGroupDirective, NgForm, Validators,FormBuilder, FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { Control } from 'leaflet';
+import { CommService } from 'src/app/services/comm.service';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -17,6 +19,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./f477-entry.component.css']
 })
 export class F477EntryComponent {
+ 
+  //form = new FormGroup({dbNameControl:new FormControl('')})
+  //dbNameControl=new FormControl('')
+  form=null;
+
   techs =[
     {value:'10',name:'Asymmetric xDSL'},
     {value:'11',name:'ADSL2,ADSL2+'},
@@ -34,10 +41,33 @@ export class F477EntryComponent {
     {value:'90',name:'Electric Power Line'},
     {value:'0',name:'All Other'},
 ]
-  dbNameControl = new FormControl('', [
-  ]);
-  defaultTechControl = new FormControl('',[])
-  maximumAdvertisedDownstream = new FormControl('', [
-  ]);
+
   matcher = new MyErrorStateMatcher();
+  user: any;
+
+  constructor(private _formBuilder: FormBuilder, private _commService:CommService) {
+    this.form = this._formBuilder.group({
+      'db_name':[''],
+      
+       'tech_used':[],
+       'consumer':[true],
+       'downstream':[''],
+       'upstream':['']
+     })
+     this.loadData();
+  }
+  async loadData() {
+    this.user=await this._commService.get_user_attributes()
+    this.form.patchValue(this.user);
+  }
+  onSubmit() {
+    console.log(this.form.value)
+    this.user['db_name'] = this.form.value.db_name;
+    this.user['tech_used']=this.form.value.tech_used;
+    this.user['consumer']=this.form.value.consumer;
+    this.user['upstream']=this.form.value.upstream;
+    this.user['downstream']=this.form.value.downstream;
+    this._commService.store_user_attributes(this.user);
+
+  }
 }

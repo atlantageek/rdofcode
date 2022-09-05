@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_24_010837) do
+ActiveRecord::Schema.define(version: 2022_09_03_135059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "h3"
@@ -56,6 +56,31 @@ ActiveRecord::Schema.define(version: 2021_09_24_010837) do
     t.string "county_name", limit: 255
     t.integer "elgible_locations"
     t.integer "reserve_price"
+  end
+
+  create_table "census_blocks", primary_key: "ogc_fid", id: :serial, force: :cascade do |t|
+    t.string "statefp20", limit: 2
+    t.string "countyfp20", limit: 3
+    t.string "tractce20", limit: 6
+    t.string "blockce20", limit: 4
+    t.string "geoid20", limit: 15
+    t.string "name20", limit: 10
+    t.string "mtfcc20", limit: 5
+    t.string "ur20", limit: 1
+    t.string "uace20", limit: 5
+    t.string "uatype20", limit: 1
+    t.string "funcstat20", limit: 1
+    t.decimal "aland20", precision: 14
+    t.decimal "awater20", precision: 14
+    t.string "intptlat20", limit: 11
+    t.string "intptlon20", limit: 12
+    t.decimal "housing20", precision: 12
+    t.decimal "pop20", precision: 12
+    t.geometry "wkb_geometry", limit: {:srid=>4269, :type=>"multi_polygon"}
+    t.geometry "geom", limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.index ["geoid20"], name: "census_blocks_geoid20", unique: true
+    t.index ["geom"], name: "census_blocks_geom_idx", using: :gist
+    t.index ["wkb_geometry"], name: "census_blocks_wkb_geometry_geom_idx", using: :gist
   end
 
   create_table "fl01", primary_key: "gid", id: :serial, force: :cascade do |t|
@@ -248,6 +273,11 @@ ActiveRecord::Schema.define(version: 2021_09_24_010837) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "db_name"
+    t.string "tech_used"
+    t.boolean "consumer"
+    t.decimal "upstream"
+    t.decimal "downstream"
   end
 
 end

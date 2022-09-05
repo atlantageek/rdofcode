@@ -34,12 +34,10 @@ export class DatavizComponent implements OnInit {
 
   async ngOnInit() {
     let layers = await this.commService.getLayers()
-    debugger;
     let base_layers={}
     let overlay_layers={}
     //L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' }).addTo(this.map)
     layers.forEach(layer => {
-      debugger;
       if (layer.base_layer && layer.layer_type == 'tile') {
         base_layers[layer.layer_name]=L.tileLayer(layer.layer_url, { maxZoom: 18, attribution: '...' }).addTo(this.map)
       }
@@ -58,7 +56,6 @@ export class DatavizComponent implements OnInit {
 
     
   }
-  debugger;
 
   rowData: BehaviorSubject<IAddress[]> = new BehaviorSubject<IAddress[]>([]);
   private gridApi;

@@ -11,21 +11,26 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
+    
     if auth_header
+      logger.debug("Auth Header")
+      logger.debug(auth_header)
       token = auth_header.split(' ')[1]
       # header: { 'Authorization': 'Bearer <token>' }
       begin
-        JWT.decode(token, 's3cr3t', true, algorithm: 'HS256')
+        return JWT.decode(token, 's3cr3t', true, algorithm: 'HS256')
       rescue JWT::DecodeError
         nil
       end
+    else
+      logger.debug("No Auth Header")
     end
   end
 
   def logged_in_user
     if decoded_token
       user_id = decoded_token[0]['user_id']
-      puts(user_id)
+      logger.debug(user_id)
       @user = User.find_by(id: user_id)
     end
   end

@@ -1,9 +1,9 @@
-<form class="f477-form">
+<form class="f477-form" [formGroup]="form">
     <p>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="field-full-width">
       <mat-label>DB Name</mat-label>
-      <input type="input" required matInput [formControl]="dbNameControl" [errorStateMatcher]="matcher"
-             placeholder="Ex. MomAndPop Telecom">
+      <input type="input" required matInput formControlName="db_name" [errorStateMatcher]="matcher"
+            id="dbNameControl" placeholder="Ex. MomAndPop Telecom">
       <mat-hint>Errors appear instantly!</mat-hint>
       <mat-error >
         Please enter a valid starting Salary
@@ -12,18 +12,42 @@
 
     </p>
     <p>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="field-full-width" >
         <mat-label>Default Transmission Tech</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let tech of techs"[value]="tech.value">
+        <mat-select formControlName="tech_used" >
+          <mat-option *ngFor="let tech of techs"  [value]="tech.value">
             {{tech.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </p>
     <p>
-      <mat-checkbox [aria-label]="'Consumer Broadband available'">
+      <mat-checkbox formControlName="consumer" >Consumer Broadband available
       </mat-checkbox>
-  </p>
-      <button>Search!</button>
+    </p>
+    <p>
+      <mat-form-field class="field-full-width">
+        <mat-label>Maximum advertised Downstream bandwidth</mat-label>
+        <input type="input" formControlName="downstream" required matInput 
+               placeholder="10">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error >
+          Please enter a valid starting Salary
+        </mat-error>
+      </mat-form-field>
+  
+    </p>
+    <p>
+      <mat-form-field class="field-full-width">
+        <mat-label>Maximum advertised Upstream Bandwidth</mat-label>
+        <input type="input" formControlName="upstream" required matInput
+               placeholder="10">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error >
+          Please enter a valid starting Salary
+        </mat-error>
+      </mat-form-field>
+  
+    </p>
+      <button (click)="onSubmit()">Save</button>
   </form>

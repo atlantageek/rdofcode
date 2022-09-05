@@ -35,7 +35,6 @@ export class AreaSelectionService {
       var bounds:IBounds = {xMin:9999,xMax:-9999,yMin:9999,yMax:-9999};
       var coordinates, point, latitude, longitude;
 
-      debugger;
       coordinates = data.coordinates;
 
             // It's a MultiPolygon
@@ -43,7 +42,6 @@ export class AreaSelectionService {
       for (var j = 0; j < coordinates.length; j++) {
             // For each individual coordinate in this coordinate set...
         for (var k = 0; k < coordinates[j][0].length; k++) {
-          debugger;
           longitude = coordinates[j][0][k][0];
           latitude  = coordinates[j][0][k][1];
       

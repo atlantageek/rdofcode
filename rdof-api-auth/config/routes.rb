@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   post "/aois/:userid", to: "geo#storeAois"
   get "/aois/:userid", to: "geo#getAois"
   get '/layers', to:'layer#index'
+  post "/user_attributes/", to: "users#write_attributes"
+  get '/user_attributes', to: "users#attributes"
 end
